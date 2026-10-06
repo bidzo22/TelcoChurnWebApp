@@ -1,0 +1,182 @@
+﻿@model TelcoChurnWebApp.Models.ModelInput
+
+@{
+    ViewData["Title"] = "Прогноз відтоку клієнтів";
+}
+
+<h1 class="mb-4">Прогноз відтоку клієнтів (Churn)</h1>
+<p class="text-muted">Заповніть дані клієнта, щоб дізнатись, чи ймовірно він відмовиться від послуг.</p>
+
+@if (ViewBag.Prediction != null)
+{
+    bool willChurn = (bool)ViewBag.Prediction;
+    float probability = (float)ViewBag.Probability;
+    <div class="alert @(willChurn ? "alert-danger" : "alert-success") mt-3">
+        <h4 class="alert-heading">
+            @(willChurn ? "Клієнт, ймовірно, піде" : "Клієнт, ймовірно, залишиться")
+        </h4>
+        <p class="mb-0">Ймовірність відтоку: <strong>@((probability * 100).ToString("0.0"))%</strong></p>
+    </div>
+}
+
+<form asp-action="Index" method="post" class="row g-3 mt-2">
+
+    <div class="col-md-4">
+        <label class="form-label">Стать</label>
+        <select asp-for="Gender" class="form-select">
+            <option value="Female">Жіноча</option>
+            <option value="Male">Чоловіча</option>
+        </select>
+    </div>
+
+    <div class="col-md-4">
+        <label class="form-label">Вік 65+ (пенсійний вік)</label>
+        <select asp-for="SeniorCitizen" class="form-select">
+            <option value="0">Ні</option>
+            <option value="1">Так</option>
+        </select>
+    </div>
+
+    <div class="col-md-4">
+        <label class="form-label">Стаж обслуговування (місяців)</label>
+        <input asp-for="Tenure" type="number" class="form-control" min="0" />
+    </div>
+
+    <div class="col-md-4">
+        <label class="form-label">Є партнер/дружина/чоловік</label>
+        <select asp-for="Partner" class="form-select">
+            <option value="No">Ні</option>
+            <option value="Yes">Так</option>
+        </select>
+    </div>
+
+    <div class="col-md-4">
+        <label class="form-label">Є утриманці (діти тощо)</label>
+        <select asp-for="Dependents" class="form-select">
+            <option value="No">Ні</option>
+            <option value="Yes">Так</option>
+        </select>
+    </div>
+
+    <div class="col-md-4">
+        <label class="form-label">Телефонний зв'язок</label>
+        <select asp-for="PhoneService" class="form-select">
+            <option value="No">Ні</option>
+            <option value="Yes">Так</option>
+        </select>
+    </div>
+
+    <div class="col-md-4">
+        <label class="form-label">Кілька телефонних ліній</label>
+        <select asp-for="MultipleLines" class="form-select">
+            <option value="No phone service">Немає телефону</option>
+            <option value="No">Ні</option>
+            <option value="Yes">Так</option>
+        </select>
+    </div>
+
+    <div class="col-md-4">
+        <label class="form-label">Тип інтернет-послуги</label>
+        <select asp-for="InternetService" class="form-select">
+            <option value="DSL">DSL</option>
+            <option value="Fiber optic">Оптоволокно</option>
+            <option value="No">Немає</option>
+        </select>
+    </div>
+
+    <div class="col-md-4">
+        <label class="form-label">Захист в інтернеті</label>
+        <select asp-for="OnlineSecurity" class="form-select">
+            <option value="No internet service">Немає інтернету</option>
+            <option value="No">Ні</option>
+            <option value="Yes">Так</option>
+        </select>
+    </div>
+
+    <div class="col-md-4">
+        <label class="form-label">Резервне копіювання онлайн</label>
+        <select asp-for="OnlineBackup" class="form-select">
+            <option value="No internet service">Немає інтернету</option>
+            <option value="No">Ні</option>
+            <option value="Yes">Так</option>
+        </select>
+    </div>
+
+    <div class="col-md-4">
+        <label class="form-label">Захист пристрою</label>
+        <select asp-for="DeviceProtection" class="form-select">
+            <option value="No internet service">Немає інтернету</option>
+            <option value="No">Ні</option>
+            <option value="Yes">Так</option>
+        </select>
+    </div>
+
+    <div class="col-md-4">
+        <label class="form-label">Технічна підтримка</label>
+        <select asp-for="TechSupport" class="form-select">
+            <option value="No internet service">Немає інтернету</option>
+            <option value="No">Ні</option>
+            <option value="Yes">Так</option>
+        </select>
+    </div>
+
+    <div class="col-md-4">
+        <label class="form-label">Стрімінг ТБ</label>
+        <select asp-for="StreamingTV" class="form-select">
+            <option value="No internet service">Немає інтернету</option>
+            <option value="No">Ні</option>
+            <option value="Yes">Так</option>
+        </select>
+    </div>
+
+    <div class="col-md-4">
+        <label class="form-label">Стрімінг фільмів</label>
+        <select asp-for="StreamingMovies" class="form-select">
+            <option value="No internet service">Немає інтернету</option>
+            <option value="No">Ні</option>
+            <option value="Yes">Так</option>
+        </select>
+    </div>
+
+    <div class="col-md-4">
+        <label class="form-label">Тип контракту</label>
+        <select asp-for="Contract" class="form-select">
+            <option value="Month-to-month">Щомісячний</option>
+            <option value="One year">На рік</option>
+            <option value="Two year">На два роки</option>
+        </select>
+    </div>
+
+    <div class="col-md-4">
+        <label class="form-label">Електронний рахунок (без паперу)</label>
+        <select asp-for="PaperlessBilling" class="form-select">
+            <option value="No">Ні</option>
+            <option value="Yes">Так</option>
+        </select>
+    </div>
+
+    <div class="col-md-4">
+        <label class="form-label">Спосіб оплати</label>
+        <select asp-for="PaymentMethod" class="form-select">
+            <option value="Electronic check">Електронний чек</option>
+            <option value="Mailed check">Поштовий чек</option>
+            <option value="Bank transfer (automatic)">Банківський переказ (авто)</option>
+            <option value="Credit card (automatic)">Кредитна картка (авто)</option>
+        </select>
+    </div>
+
+    <div class="col-md-4">
+        <label class="form-label">Щомісячна плата ($)</label>
+        <input asp-for="MonthlyCharges" type="number" step="0.01" class="form-control" min="0" />
+    </div>
+
+    <div class="col-md-4">
+        <label class="form-label">Загальна сума платежів ($)</label>
+        <input asp-for="TotalCharges" type="number" step="0.01" class="form-control" min="0" />
+    </div>
+
+    <div class="col-12 mt-4">
+        <button type="submit" class="btn btn-primary btn-lg">Отримати прогноз</button>
+    </div>
+
+</form>

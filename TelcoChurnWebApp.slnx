@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="ChurnModel.Training/ChurnModel.Training.csproj" Id="e125dfad-4c06-40e2-8b5e-913559a9f4ca" />
+  <Project Path="TelcoChurnWebApp/TelcoChurnWebApp.csproj" />
+</Solution>
